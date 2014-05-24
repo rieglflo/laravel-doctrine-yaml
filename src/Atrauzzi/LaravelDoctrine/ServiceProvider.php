@@ -92,7 +92,7 @@ class ServiceProvider extends Base {
 
 			}
 
-			$doctrine_config = Setup::createAnnotationMetadataConfiguration(
+			$doctrine_config = Setup::createYAMLMetadataConfiguration(
 				$config->get('laravel-doctrine::doctrine.metadata'),
 				$devMode,
 				$config->get('laravel-doctrine::doctrine.proxy_classes.directory'),

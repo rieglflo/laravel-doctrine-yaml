@@ -35,7 +35,7 @@ return array(
 	|
 	*/
 	'metadata' => array(
-		__DIR__.'/../../../../../app/models'
+		__DIR__.'/../../../../../app/orm'
 	),
 
 	/*
