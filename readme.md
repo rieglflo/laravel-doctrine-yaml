@@ -34,7 +34,7 @@ Then add the following to your `facades` array in the same file:
 
 You'll likely want to configure the database connection, which you can do by overriding the bundle's defaults with the following command:
 
-    ./artisan config:publish atrauzzi/laravel-doctrine
+    ./artisan config:publish joshjwalker/laravel-doctrine-yaml
 
 This should get you a fresh copy of the configuration file in the directory `app/config/packages/vendor/atrauzzi/laravel-doctrine`.
 
