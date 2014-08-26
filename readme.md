@@ -1,4 +1,12 @@
-## Laravel Doctrine
+## Laravel Doctrine (Now With YAML!)
+
+### IMPORTANT NOTE
+
+Pretty much 99.99% of this package was written by the contributors. The only thing I did was enable YAML configuration, because I hate the Class Metadata approach.
+As such, the Atrauzzi name is still all over this thing. Give credit where it is due. Thanks,
+
+Josh
+
 
 ### An ORM for a Framework for Web Artisans
 
@@ -14,7 +22,7 @@ Installation is the usual for Laravel packages.
 
 Insert the following in the packages section of your `composer.json` file and run an update:
 
-    "atrauzzi/laravel-doctrine": "dev-master",
+    "joshjwalker/laravel-doctrine-yaml": "dev-master",
 
 Add the service provider to your Laravel application in `app/config/app.php`. In the `providers` array add:
 
