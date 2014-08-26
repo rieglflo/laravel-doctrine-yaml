@@ -36,7 +36,7 @@ You'll likely want to configure the database connection, which you can do by ove
 
     ./artisan config:publish joshjwalker/laravel-doctrine-yaml
 
-This should get you a fresh copy of the configuration file in the directory `app/config/packages/vendor/atrauzzi/laravel-doctrine`.
+This should get you a fresh copy of the configuration file in the directory `app/config/packages/vendor/joshjwalker/laravel-doctrine`.
 
 #### Usage
 
