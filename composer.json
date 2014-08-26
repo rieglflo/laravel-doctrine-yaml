@@ -1,12 +1,16 @@
 {
-    "name": "atrauzzi/laravel-doctrine",
-    "description": "An ORM for a Framework for Web Artisans",
-    "keywords": ["doctrine", "laravel", "orm"],
+    "name": "joshjwalker/laravel-doctrine-yaml",
+    "description": "An ORM for a Framework for Web Artisans (YAML Version)",
+    "keywords": ["doctrine", "laravel", "orm","YAML"],
     "license": "MIT",
     "authors": [
         {
             "name": "Alexander Trauzzi",
             "email": "atrauzzi@gmail.com"
+        },
+        {
+            "name": "Josh Walker",
+            "email": "walkerjoshuaj@gmail.com"
         }
     ],
     "require": {
