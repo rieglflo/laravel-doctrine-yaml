@@ -1,5 +1,5 @@
 {
-    "name": "joshjwalker/laravel-doctrine-yaml",
+    "name": "rieglflo/laravel-doctrine-yaml",
     "description": "An ORM for a Framework for Web Artisans (YAML Version)",
     "keywords": ["doctrine", "laravel", "orm","YAML"],
     "license": "MIT",
