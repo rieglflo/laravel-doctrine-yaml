@@ -32,10 +32,16 @@ use Doctrine\DBAL\Migrations\Tools\Console\Command\StatusCommand;
 use Doctrine\DBAL\Migrations\Tools\Console\Command\VersionCommand;
 
 require __DIR__.'/../../../../bootstrap/autoload.php';
-$app = require_once __DIR__.'/../../../../bootstrap/start.php';
-$app->boot();
+$app = require_once __DIR__.'/../../../../bootstrap/app.php';
+/* @var $app \Illuminate\Foundation\Application */
 
-$em = App::make('doctrine');
+$kernel = $app->make('Illuminate\Contracts\Console\Kernel');
+$kernel->bootstrap();
+
+$em = $app->make('doctrine');
+
+$conn = $em->getConnection();
+$conn->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
 
 $helperSet = new HelperSet(array(
 	'db' => new ConnectionHelper($em->getConnection()),
@@ -44,11 +50,11 @@ $helperSet = new HelperSet(array(
 ));
 
 $migrations_config = new Configuration($em->getConnection());
-$migrations_config->setName(Config::get('laravel-doctrine::doctrine.migrations.name', 'Doctrine Sandbox Migrations'));
+$migrations_config->setName(Config::get('laravel-doctrine-yaml::doctrine.migrations.name', 'Doctrine Migrations'));
 $migrations_config->setMigrationsNamespace('DoctrineMigrations');
-$migrations_config->setMigrationsTableName(Config::get('laravel-doctrine::doctrine.migrations.table_name', 'doctrine_migration_versions'));
+$migrations_config->setMigrationsTableName(Config::get('laravel-doctrine-yaml::doctrine.migrations.table_name', 'migrationss'));
 
-$migrations_directory = App::make('path').Config::get('laravel-doctrine::doctrine.migrations.directory', '/database/doctrine-migrations');
+$migrations_directory = $app->make('path').Config::get('laravel-doctrine-yaml::doctrine.migrations.directory', '/../database/migrations');
 $migrations_config->setMigrationsDirectory($migrations_directory);
 $migrations_config->registerMigrationsFromDirectory($migrations_directory);
 
