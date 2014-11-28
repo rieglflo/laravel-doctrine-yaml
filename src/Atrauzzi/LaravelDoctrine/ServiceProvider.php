@@ -40,14 +40,14 @@ class ServiceProvider extends Base {
 
 			// Retrieve our configuration.
 			$config = $app['config'];
-			$connection = $config->get('laravel-doctrine::doctrine.connection');
+			$connection = $config->get('laravel-doctrine-yaml::doctrine.connection');
 			$devMode = $config->get('app.debug');
 
 			$cache = null; // Default, let Doctrine decide.
 
 			if(!$devMode) {
 
-				$cache_config = $config->get('laravel-doctrine::doctrine.cache');
+				$cache_config = $config->get('laravel-doctrine-yaml::doctrine.cache');
 				$cache_provider = $cache_config['provider'];
 				$cache_provider_config = $cache_config[$cache_provider];
 
@@ -93,27 +93,35 @@ class ServiceProvider extends Base {
 			}
 
 			$doctrine_config = Setup::createYAMLMetadataConfiguration(
-				$config->get('laravel-doctrine::doctrine.metadata'),
+				$config->get('laravel-doctrine-yaml::doctrine.metadata'),
 				$devMode,
-				$config->get('laravel-doctrine::doctrine.proxy_classes.directory'),
+				$config->get('laravel-doctrine-yaml::doctrine.proxy_classes.directory'),
 				$cache
 			);
 
 			$doctrine_config->setAutoGenerateProxyClasses(
-				$config->get('laravel-doctrine::doctrine.proxy_classes.auto_generate')
+				$config->get('laravel-doctrine-yaml::doctrine.proxy_classes.auto_generate')
 			);
 
-            $doctrine_config->setDefaultRepositoryClassName($config->get('laravel-doctrine::doctrine.defaultRepository'));
+            $doctrine_config->setDefaultRepositoryClassName($config->get('laravel-doctrine-yaml::doctrine.defaultRepository'));
 
-            $doctrine_config->setSQLLogger($config->get('laravel-doctrine::doctrine.sqlLogger'));
+            $doctrine_config->setSQLLogger($config->get('laravel-doctrine-yaml::doctrine.sqlLogger'));
 
-			$proxy_class_namespace = $config->get('laravel-doctrine::doctrine.proxy_classes.namespace');
+			$proxy_class_namespace = $config->get('laravel-doctrine-yaml::doctrine.proxy_classes.namespace');
 			if ($proxy_class_namespace !== null) {
 				$doctrine_config->setProxyNamespace($proxy_class_namespace);
 			}
 
 			// Trap doctrine events, to support entity table prefix
 			$evm = new EventManager();
+
+			$extensions = $config->get('laravel-doctrine-yaml::doctrine.extensionListeners');
+			if (!empty($extensions) && is_array($extensions)) {
+				foreach($extensions as $extension) {
+					$listener = new $extension();
+					$evm->addEventSubscriber($listener);
+				}
+			}
 
 			if (isset($connection['prefix']) && !empty($connection['prefix'])) {
 				$evm->addEventListener(Events::loadClassMetadata, new Listener\Metadata\TablePrefix($connection['prefix']));
