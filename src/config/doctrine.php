@@ -35,7 +35,7 @@ return array(
 	|
 	*/
 	'metadata' => array(
-		__DIR__.'/../../../../../app/orm'
+		"yaml" => __DIR__.'/../../../../../app/orm'
 	),
 
 	/*
